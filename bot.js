@@ -49,9 +49,10 @@ getImage = function (cb) {
 	var flickrAPI = "https://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=77b820af248ee9b5bfd060ff315f8ee4&group_id=568523%40N21&per_page=10&format=json&nojsoncallback=1";
 	//var flickrAPI = "http://api.flickr.com/services/"
 	
-	var getFlickr = jquery.getJSON( flickrAPI, {
+	jquery.getJSON( flickrAPI, {
 		console.log("success!");
-	}).done(function (json) {
+	})
+		.done(function (json) {
 			console.log("inside the done part");
 			var botData = {
 				photoID: json.photos.photo[0].id,
