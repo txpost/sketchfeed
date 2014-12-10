@@ -16,52 +16,10 @@ var t = new Twit({
 	access_token_secret: 	process.env.BOT_ACCESS_TOKEN_SECRET
 });
 
-// Flickr.authenticate(flickrOptions, function (error, flickr) {
-// 	console.log("checkpoint#1");
-// 	if (!error) {
-// 		flickr.groups.pools.getPhotos({
-// 			group_id: "568523@N21",
-// 			page: 1,
-// 			per_page: 10
-// 		}, function (err, result) {
-// 			console.log("checkpoint#2");
-// 			if (!err) {
-// 				var botData = {
-// 					photoID: result.photos.photo[0].id,
-// 					photoOwnerID: result.photos.photo[0].owner,
-// 					photoOwnerName: result.photos.photo[0].ownername,
-// 					photoTitle: result.photos.photo[0].title
-// 				};
-// 				console.log("here's the photoID: " + botData.photoID);
-// 				//cb(null, botData);
-// 			} else {
-// 				console.log("There was error getting an image. ABORT!");
-// 				//cb(err, botData);
-// 			}
-// 		});		
-// 	} else {
-// 		console.log("There was an issue with flickr. ABORT!");
-// 	}
-// });
-
-var flickrAPI = "https://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=77b820af248ee9b5bfd060ff315f8ee4&group_id=568523%40N21&per_page=10&format=json&nojsoncallback=1";
-	//var flickrAPI = "http://api.flickr.com/services/"
-	
-// request(flickrAPI, function (error, response, body) {
-// 	if (!error && response.statusCode == 200) {
-// 		// console.log(body);
-// 		// console.log(JSON.stringify(body));
-// 		var json = JSON.parse(body);
-// 		// console.log(JSON.parse(body));
-// 		console.log(json.photos.photo[0].title);
-// 	};
-// })
-
 // get an image from the Urban Sketchers Flickr group pool
 getImage = function (cb) {
 	console.log("checkpoint#1");
 	var flickrAPI = "https://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=77b820af248ee9b5bfd060ff315f8ee4&group_id=568523%40N21&per_page=10&format=json&nojsoncallback=1";
-	//var flickrAPI = "http://api.flickr.com/services/"
 	
 	request(flickrAPI, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
@@ -77,35 +35,6 @@ getImage = function (cb) {
 			cb(null, botData);
 		};
 	})
-
-	// var xhr = new XMLHttpRequest();
-	// xhr.open("GET", flickrAPI, true);
-	// xhr.send();
-	// xhr.onreadystatechange=function () {
-	// 	if (xhr.readyState === 4 && xhr.status === 200) {
-	// 		var json = JSON.parse(xhr.responseText);
-	// 		console.log("success!");
-	// 		var botData = {
-	// 			photoID: json.photos.photo[0].id,
-	// 			photoOwnerID: json.photos.photo[0].owner,
-	// 			photoOwnerName: json.photos.photo[0].ownername,
-	// 			photoTitle: json.photos.photo[0].title
-	// 		}
-	// 		console.log("here's the photoID: " + botData.photoID);
-	// 		cb(null, botData);
-	// 	};
-	// }
-
-	// jquery.getJSON( flickrAPI, function (json) {
-	// 	console.log("success!");
-	// 	var botData = {
-	// 		photoID: json.photos.photo[0].id,
-	// 		photoOwnerID: json.photos.photo[0].owner,
-	// 		photoOwnerName: json.photos.photo[0].ownername,
-	// 		photoTitle: json.photos.photo[0].title
-	// 	}
-	// 	console.log("here's the photoID: " + botData.photoID);
-	// });
 }
 
 
@@ -159,4 +88,4 @@ setInterval(function () {
 	catch (e) {
 		console.log(e);
 	}
-}, 30000);
+}, 60000 * 2);
