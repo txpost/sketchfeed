@@ -16,25 +16,32 @@ var t = new Twit({
 
 Flickr.authenticate(flickrOptions, function (error, flickr) {
 	console.log("checkpoint#1");
-	flickr.groups.pools.getPhotos({
-		group_id: "568523@N21",
-		page: 1,
-		per_page: 10
-	}, function (err, result) {
-		if (!err) {
-			var botData = {
-				photoID: result.photos.photo[0].id,
-				photoOwnerID: result.photos.photo[0].owner,
-				photoOwnerName: result.photos.photo[0].ownername,
-				photoTitle: result.photos.photo[0].title
-			};
-			console.log("here's the photoID: " + botData.photoID);
-			//cb(null, botData);
-		} else {
-			console.log("There was error getting an image. ABORT!");
-			//cb(err, botData);
-		}
-	});
+	if (!error) {
+		flickr.groups.pools.getPhotos({
+			group_id: "568523@N21",
+			page: 1,
+			per_page: 10
+		}, function (err, result) {
+			console.log("checkpoint#2");
+			if (!err) {
+				var botData = {
+					photoID: result.photos.photo[0].id,
+					photoOwnerID: result.photos.photo[0].owner,
+					photoOwnerName: result.photos.photo[0].ownername,
+					photoTitle: result.photos.photo[0].title
+				};
+				console.log("here's the photoID: " + botData.photoID);
+				//cb(null, botData);
+			} else {
+				console.log("There was error getting an image. ABORT!");
+				//cb(err, botData);
+			}
+		});		
+	} else {
+		console.log("There was an issue with flickr. ABORT!");
+		break;
+	}
+
 });
 
 // get an image from the Urban Sketchers Flickr group pool
