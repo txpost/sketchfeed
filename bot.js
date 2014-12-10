@@ -6,10 +6,6 @@ var Flickr = require("flickrapi"),
       secret: "29a6663e320971cc"
     };
 
-Flickr.authenticate(flickrOptions, function (error, flickr) {
-	// body...
-});
-
 // authentication for the Twitter API
 var t = new Twit({
 	consumer_key: 			process.env.BOT_CONSUMER_KEY,
@@ -20,23 +16,25 @@ var t = new Twit({
 
 // get an image from the Urban Sketchers Flickr group pool
 getImage = function (cb) {
-	Flickr.groups.pools.getPhotos({
-		group_id: "568523@N21",
-		page: 1,
-		per_page: 10
-	}, function (err, result) {
-		if (!err) {
-			var botData = {
-				photoID: result.photos.photo[0].id,
-				photoOwnerID: result.photos.photo[0].owner,
-				photoOwnerName: result.photos.photo[0].ownername,
-				photoTitle: result.photos.photo[0].title
-			};
-			cb(null, botData);
-		} else {
-			console.log("There was error getting an image. ABORT!");
-			cb(err, botData);
-		}
+	Flickr.authenticate(flickrOptions, function (error, flickr) {
+		flickr.groups.pools.getPhotos({
+			group_id: "568523@N21",
+			page: 1,
+			per_page: 10
+		}, function (err, result) {
+			if (!err) {
+				var botData = {
+					photoID: result.photos.photo[0].id,
+					photoOwnerID: result.photos.photo[0].owner,
+					photoOwnerName: result.photos.photo[0].ownername,
+					photoTitle: result.photos.photo[0].title
+				};
+				cb(null, botData);
+			} else {
+				console.log("There was error getting an image. ABORT!");
+				cb(err, botData);
+			}
+		});
 	});
 }
 
