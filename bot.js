@@ -49,17 +49,34 @@ getImage = function (cb) {
 	var flickrAPI = "https://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=77b820af248ee9b5bfd060ff315f8ee4&group_id=568523%40N21&per_page=10&format=json&nojsoncallback=1";
 	//var flickrAPI = "http://api.flickr.com/services/"
 	
-	jquery.getJSON( flickrAPI, function (json) {
-		console.log("success!");
-		var botData = {
-			photoID: json.photos.photo[0].id,
-			photoOwnerID: json.photos.photo[0].owner,
-			photoOwnerName: json.photos.photo[0].ownername,
-			photoTitle: json.photos.photo[0].title
-		}
-		console.log("here's the photoID: " + botData.photoID);
-	});
-	cb(null, botData);
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", flickrAPI, true);
+	xhr.send():
+	xhr.onreadystatechange=function () {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			var json = JSON.parse(xhr.responseText);
+			console.log("success!");
+			var botData = {
+				photoID: json.photos.photo[0].id,
+				photoOwnerID: json.photos.photo[0].owner,
+				photoOwnerName: json.photos.photo[0].ownername,
+				photoTitle: json.photos.photo[0].title
+			}
+			console.log("here's the photoID: " + botData.photoID);
+			cb(null, botData);
+		};
+	}
+
+	// jquery.getJSON( flickrAPI, function (json) {
+	// 	console.log("success!");
+	// 	var botData = {
+	// 		photoID: json.photos.photo[0].id,
+	// 		photoOwnerID: json.photos.photo[0].owner,
+	// 		photoOwnerName: json.photos.photo[0].ownername,
+	// 		photoTitle: json.photos.photo[0].title
+	// 	}
+	// 	console.log("here's the photoID: " + botData.photoID);
+	// });
 }
 
 
