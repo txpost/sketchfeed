@@ -1,0 +1,16 @@
+{
+  "name": "sketchfeed",
+  "version": "1.0.0",
+  "description": "Tweets urban sketches.",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@trevpost",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^0.9.0",
+    "flickrapi": "^0.3.28",
+    "twit": "^1.1.18"
+  }
+}
