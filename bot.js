@@ -44,6 +44,16 @@ var t = new Twit({
 // 	}
 // });
 
+var flickrAPI = "https://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=77b820af248ee9b5bfd060ff315f8ee4&group_id=568523%40N21&per_page=10&format=json&nojsoncallback=1";
+	//var flickrAPI = "http://api.flickr.com/services/"
+	
+request(flickrAPI, function (error, response, body) {
+	if (!error && response.statusCode == 200) {
+		// console.log(body);
+		console.log(JSON.stringify(body));
+	};
+})
+
 // get an image from the Urban Sketchers Flickr group pool
 getImage = function (cb) {
 	console.log("checkpoint#1");
@@ -53,6 +63,7 @@ getImage = function (cb) {
 	request(flickrAPI, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			// console.log(body);
+			console.log(JSON.stringify(body));
 			var botData = {
 				photoID: body.photos.photo[0].id,
 				photoOwnerID: body.photos.photo[0].owner,
