@@ -51,18 +51,18 @@ getImage = function (cb) {
 	
 	var getFlickr = jquery.getJSON( flickrAPI, {
 		console.log("success!");
-	}
-
-	var botData = {
-		photoID: getFlickr.photos.photo[0].id,
-		photoOwnerID: getFlickr.photos.photo[0].owner,
-		photoOwnerName: getFlickr.photos.photo[0].ownername,
-		photoTitle: getFlickr.photos.photo[0].title
-	};
-
-	console.log("here's the photoID: " + botData.photoID);
+	})
+		.done(function (json) {
+			console.log("inside the done part");
+			var botData = {
+				photoID: json.photos.photo[0].id,
+				photoOwnerID: json.photos.photo[0].owner,
+				photoOwnerName: json.photos.photo[0].ownername,
+				photoTitle: json.photos.photo[0].title
+			}
+			console.log("here's the photoID: " + botData.photoID);
+		});
 	cb(null, botData);
-
 }
 
 
