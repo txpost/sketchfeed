@@ -113,7 +113,7 @@ getImage = function (cb) {
 formatTweet = function (botData, cb) {
 	var tweetText = botData.photoTitle;
 	var tweetOwnerName = botData.photoOwnerName;
-	var tweetOwnerID = botData.photoOwner;
+	var tweetOwnerID = botData.photoOwnerID;
 	var tweetPicID = botData.photoID;
 	//https://www.flickr.com/photos/98277396@N08/15350213575/in/pool-urbansketches
 	//https://www.flickr.com/photos/48097026@N02/15956844955/in/pool-urbansketches
