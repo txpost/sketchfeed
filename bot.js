@@ -28,9 +28,9 @@ getImage = function (cb) {
 		if (!err) {
 			var botData = {
 				photoID: result.photos.photo[0].id,
-				photoOwnerID: result.photos.photo[0].owner;
-				photoOwnerName: result.photos.photo[0].ownername;
-				photoTitle: result.photos.photo[0].title;
+				photoOwnerID: result.photos.photo[0].owner,
+				photoOwnerName: result.photos.photo[0].ownername,
+				photoTitle: result.photos.photo[0].title
 			};
 			cb(null, botData);
 		} else {
