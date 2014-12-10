@@ -49,18 +49,16 @@ getImage = function (cb) {
 	var flickrAPI = "https://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=77b820af248ee9b5bfd060ff315f8ee4&group_id=568523%40N21&per_page=10&format=json&nojsoncallback=1";
 	//var flickrAPI = "http://api.flickr.com/services/"
 	
-	jquery.getJSON( flickrAPI, {
+	jquery.getJSON( flickrAPI, function (json) {
 		console.log("success!");
-	}).done(function (json) {
-			console.log("inside the done part");
-			var botData = {
-				photoID: json.photos.photo[0].id,
-				photoOwnerID: json.photos.photo[0].owner,
-				photoOwnerName: json.photos.photo[0].ownername,
-				photoTitle: json.photos.photo[0].title
-			}
-			console.log("here's the photoID: " + botData.photoID);
-		});
+		var botData = {
+			photoID: json.photos.photo[0].id,
+			photoOwnerID: json.photos.photo[0].owner,
+			photoOwnerName: json.photos.photo[0].ownername,
+			photoTitle: json.photos.photo[0].title
+		}
+		console.log("here's the photoID: " + botData.photoID);
+	});
 	cb(null, botData);
 }
 
