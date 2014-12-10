@@ -88,4 +88,4 @@ setInterval(function () {
 	catch (e) {
 		console.log(e);
 	}
-}, 60000 * 2);
+}, 60000 * 60 * 2);
