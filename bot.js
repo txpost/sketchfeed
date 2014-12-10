@@ -39,9 +39,7 @@ Flickr.authenticate(flickrOptions, function (error, flickr) {
 		});		
 	} else {
 		console.log("There was an issue with flickr. ABORT!");
-		break;
 	}
-
 });
 
 // get an image from the Urban Sketchers Flickr group pool
