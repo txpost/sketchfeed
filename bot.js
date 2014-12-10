@@ -17,24 +17,29 @@ var t = new Twit({
 // get an image from the Urban Sketchers Flickr group pool
 getImage = function (cb) {
 	Flickr.authenticate(flickrOptions, function (error, flickr) {
-		flickr.groups.pools.getPhotos({
-			group_id: "568523@N21",
-			page: 1,
-			per_page: 10
-		}, function (err, result) {
-			if (!err) {
-				var botData = {
-					photoID: result.photos.photo[0].id,
-					photoOwnerID: result.photos.photo[0].owner,
-					photoOwnerName: result.photos.photo[0].ownername,
-					photoTitle: result.photos.photo[0].title
-				};
-				cb(null, botData);
-			} else {
-				console.log("There was error getting an image. ABORT!");
-				cb(err, botData);
-			}
-		});
+		if (!error) {
+			flickr.groups.pools.getPhotos({
+				group_id: "568523@N21",
+				page: 1,
+				per_page: 10
+			}, function (err, result) {
+				if (!err) {
+					var botData = {
+						photoID: result.photos.photo[0].id,
+						photoOwnerID: result.photos.photo[0].owner,
+						photoOwnerName: result.photos.photo[0].ownername,
+						photoTitle: result.photos.photo[0].title
+					};
+					cb(null, botData);
+				} else {
+					console.log("There was error getting an image. ABORT!");
+					cb(err, botData);
+				}
+			});
+		} else {
+			console.log("There was an error with flickr authentication. ABORT!");
+			cb(error, botData);
+		};
 	});
 }
 
