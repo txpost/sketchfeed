@@ -17,6 +17,7 @@ var t = new Twit({
 // get an image from the Urban Sketchers Flickr group pool
 getImage = function (cb) {
 	Flickr.authenticate(flickrOptions, function (error, flickr) {
+		console.log("checkpoint#1");
 		if (!error) {
 			flickr.groups.pools.getPhotos({
 				group_id: "568523@N21",
@@ -30,6 +31,7 @@ getImage = function (cb) {
 						photoOwnerName: result.photos.photo[0].ownername,
 						photoTitle: result.photos.photo[0].title
 					};
+					console.log("here's the photoID: " + botData.photoID);
 					cb(null, botData);
 				} else {
 					console.log("There was error getting an image. ABORT!");
