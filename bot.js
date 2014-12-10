@@ -51,7 +51,7 @@ request(flickrAPI, function (error, response, body) {
 	if (!error && response.statusCode == 200) {
 		console.log(body);
 		// console.log(JSON.stringify(body));
-		console.log(body."photos"."photo"[0].id);
+		console.log(body.photos);
 	};
 })
 
