@@ -51,7 +51,7 @@ getImage = function (cb) {
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", flickrAPI, true);
-	xhr.send():
+	xhr.send();
 	xhr.onreadystatechange=function () {
 		if (xhr.readyState === 4 && xhr.status === 200) {
 			var json = JSON.parse(xhr.responseText);
