@@ -21,7 +21,7 @@ var t = new Twit({
 // get an image from the Urban Sketchers Flickr group pool
 getImage = function (cb) {
 	flickr.groups.pools.getPhotos({
-		group_id: 568523@N21,
+		group_id: "568523@N21",
 		page: 1,
 		per_page: 10
 	}, function (err, result) {
