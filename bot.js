@@ -51,8 +51,7 @@ getImage = function (cb) {
 	
 	jquery.getJSON( flickrAPI, {
 		console.log("success!");
-	})
-		.done(function (json) {
+	}).done(function (json) {
 			console.log("inside the done part");
 			var botData = {
 				photoID: json.photos.photo[0].id,
