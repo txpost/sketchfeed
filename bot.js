@@ -52,7 +52,15 @@ getImage = function (cb) {
 	
 	request(flickrAPI, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
-			console.log(body);
+			// console.log(body);
+			var botData = {
+				photoID: body.photos.photo[0].id,
+				photoOwnerID: body.photos.photo[0].owner,
+				photoOwnerName: body.photos.photo[0].ownername,
+				photoTitle: body.photos.photo[0].title
+			}
+			console.log("here's the photoID: " + botData.photoID);
+			cb(null, botData);
 		};
 	})
 
