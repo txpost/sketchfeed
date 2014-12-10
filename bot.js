@@ -1,5 +1,6 @@
 var Twit = require('twit'); 
 var async = require('async');
+var jquery = require('jquery');
 var Flickr = require("flickrapi"),
     flickrOptions = {
       api_key: "4f6c35e5446ddeb1fa681dfc8464b7c6",
@@ -14,37 +15,54 @@ var t = new Twit({
 	access_token_secret: 	process.env.BOT_ACCESS_TOKEN_SECRET
 });
 
-Flickr.authenticate(flickrOptions, function (error, flickr) {
-	console.log("checkpoint#1");
-	if (!error) {
-		flickr.groups.pools.getPhotos({
-			group_id: "568523@N21",
-			page: 1,
-			per_page: 10
-		}, function (err, result) {
-			console.log("checkpoint#2");
-			if (!err) {
-				var botData = {
-					photoID: result.photos.photo[0].id,
-					photoOwnerID: result.photos.photo[0].owner,
-					photoOwnerName: result.photos.photo[0].ownername,
-					photoTitle: result.photos.photo[0].title
-				};
-				console.log("here's the photoID: " + botData.photoID);
-				//cb(null, botData);
-			} else {
-				console.log("There was error getting an image. ABORT!");
-				//cb(err, botData);
-			}
-		});		
-	} else {
-		console.log("There was an issue with flickr. ABORT!");
-	}
-});
+// Flickr.authenticate(flickrOptions, function (error, flickr) {
+// 	console.log("checkpoint#1");
+// 	if (!error) {
+// 		flickr.groups.pools.getPhotos({
+// 			group_id: "568523@N21",
+// 			page: 1,
+// 			per_page: 10
+// 		}, function (err, result) {
+// 			console.log("checkpoint#2");
+// 			if (!err) {
+// 				var botData = {
+// 					photoID: result.photos.photo[0].id,
+// 					photoOwnerID: result.photos.photo[0].owner,
+// 					photoOwnerName: result.photos.photo[0].ownername,
+// 					photoTitle: result.photos.photo[0].title
+// 				};
+// 				console.log("here's the photoID: " + botData.photoID);
+// 				//cb(null, botData);
+// 			} else {
+// 				console.log("There was error getting an image. ABORT!");
+// 				//cb(err, botData);
+// 			}
+// 		});		
+// 	} else {
+// 		console.log("There was an issue with flickr. ABORT!");
+// 	}
+// });
 
 // get an image from the Urban Sketchers Flickr group pool
 getImage = function (cb) {
 	console.log("checkpoint#1");
+	var flickrAPI = "https://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=77b820af248ee9b5bfd060ff315f8ee4&group_id=568523%40N21&per_page=10&format=json&nojsoncallback=1";
+	//var flickrAPI = "http://api.flickr.com/services/"
+	
+	var getFlickr = jquery.getJSON( flickrAPI, {
+		console.log("success!");
+	}
+
+	var botData = {
+		photoID: getFlickr.photos.photo[0].id,
+		photoOwnerID: getFlickr.photos.photo[0].owner,
+		photoOwnerName: getFlickr.photos.photo[0].ownername,
+		photoTitle: getFlickr.photos.photo[0].title
+	};
+
+	console.log("here's the photoID: " + botData.photoID);
+	cb(null, botData);
+
 }
 
 
