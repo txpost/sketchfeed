@@ -1,29 +1,27 @@
-var Twit = require('twit'); 
-var async = require('async');
-var jquery = require('jquery');
-var Flickr = require("flickrapi"),
-    flickrOptions = {
-      api_key: "4f6c35e5446ddeb1fa681dfc8464b7c6",
-      secret: "29a6663e320971cc"
-    };
-var request = require('request');
+var Twit = require('twit'),
+	async = require('async'),
+	request = require('request');
 
 // authentication for the Twitter API
 var t = new Twit({
-	consumer_key: 			process.env.BOT_CONSUMER_KEY,
-	consumer_secret: 		process.env.BOT_CONSUMER_SECRET,
-	access_token: 			process.env.BOT_ACCESS_TOKEN,
-	access_token_secret: 	process.env.BOT_ACCESS_TOKEN_SECRET
+	consumer_key: process.env.BOT_CONSUMER_KEY,
+	consumer_secret: process.env.BOT_CONSUMER_SECRET,
+	access_token: process.env.BOT_ACCESS_TOKEN,
+	access_token_secret: process.env.BOT_ACCESS_TOKEN_SECRET
 });
 
 // get an image from the Urban Sketchers Flickr group pool
 getImage = function (cb) {
-	console.log("checkpoint#1");
-	var flickrAPI = "https://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=77b820af248ee9b5bfd060ff315f8ee4&group_id=568523%40N21&per_page=10&format=json&nojsoncallback=1";
+
+	var flickr_api_method = flickr.groups.pools.getPhotos,
+		flickr_api_key = process.env.BOT_FLICKR_KEY,
+		flickr_group_id = "568523%40N21",
+		flickr_per_page = 10,
+		flickr_format = "json&nojsoncallback=1",
+		flickrAPI = "https://api.flickr.com/services/rest/?method=" + flickr_api_method + "&api_key=" + flickr_api_key + "&group_id=" + flickr_group_id + "&per_page=" + flickr_per_page + "&format=" + flickr_format + '"';
 	
 	request(flickrAPI, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
-			// console.log(body);
 			var json = JSON.parse(body);
 			var botData = {
 				photoID: json.photos.photo[0].id,
@@ -40,13 +38,15 @@ getImage = function (cb) {
 
 // format the tweet
 formatTweet = function (botData, cb) {
+	
 	var tweetText = botData.photoTitle;
 	var tweetOwnerName = botData.photoOwnerName;
 	var tweetOwnerID = botData.photoOwnerID;
 	var tweetPicID = botData.photoID;
-	//https://www.flickr.com/photos/98277396@N08/15350213575/in/pool-urbansketches
-	//https://www.flickr.com/photos/48097026@N02/15956844955/in/pool-urbansketches
+
+	// example url to get: https://www.flickr.com/photos/48097026@N02/15956844955/in/pool-urbansketches
 	var tweetURL = "https://www.flickr.com/photos/" + tweetOwnerID + "/" + tweetPicID + "/in/pool-urbansketches";
+
 	var tweet = '"' + tweetText + '" by ' + tweetOwnerName + ": " + tweetURL;
 	botData.tweetBlock = tweet;
 	cb(null, botData);
