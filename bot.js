@@ -75,7 +75,6 @@ run = function () {
 			console.log("Tweet successful!");
 			console.log("Tweet: ", botData.tweetBlock);
 		}
-		console.log("Base tweet: ", botData.baseTweet);
 	});
 }
 
@@ -88,4 +87,4 @@ setInterval(function () {
 	catch (e) {
 		console.log(e);
 	}
-}, 60000);
+}, 60000 * 60 * 2);
