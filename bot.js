@@ -13,7 +13,7 @@ var t = new Twit({
 // get an image from the Urban Sketchers Flickr group pool
 getImage = function (cb) {
 
-	var flickr_api_method = flickr.groups.pools.getPhotos,
+	var flickr_api_method = "flickr.groups.pools.getPhotos",
 		flickr_api_key = process.env.BOT_FLICKR_KEY,
 		flickr_group_id = "568523%40N21",
 		flickr_per_page = 10,
